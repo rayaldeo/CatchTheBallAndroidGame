@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.jonnyelliott.catchtheball.MainActivity">
+
+    <TextView
+        android:id ="@+id/scoreLabel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Score:300"
+        android:textSize = '18sp'
+        android:background="#22FF0000"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+
+        />
+
+    <FrameLayout
+        android:id ="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id ="@+id/startLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='Tap To Start'
+            android:textSize ='30sp'
+            android:layout_gravity="center"
+            />
+
+        <ImageView
+            android:id = "@+id/box"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src ="@drawable/blocker_mad"
+            android:layout_gravity="center_vertical"
+            />
+        <ImageView
+            android:id = "@+id/fishswim"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src ="@drawable/fish_swim1"/>
+        <ImageView
+            android:id = "@+id/fly"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src ="@drawable/fly_fly1"/>
+        <ImageView
+            android:id = "@+id/slim"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src ="@drawable/slime_walk1"/>
+
+    </FrameLayout>
+
+
+</LinearLayout>
