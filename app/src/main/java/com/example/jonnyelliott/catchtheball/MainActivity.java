@@ -1,11 +1,14 @@
 package com.example.jonnyelliott.catchtheball;
 
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
 
     //position
     private int boxY;
+    private int fishX;
+    private int fishY;
+    private int flyX;
+    private int flyY;
+    private int slimeX;
+    private int slimeY;
 
     //Status Check
     private boolean action_flg = false;
@@ -37,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     //Size
     private int frameHeight;
     private int boxSize;
+
+    private int screenHeight, screenWidth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
         fly = (ImageView) findViewById(R.id.fly);
         slime = (ImageView) findViewById(R.id.slim);
 
+        //Get screen size
+        WindowManager wm = getWindowManager();
+        Display disp = wm.getDefaultDisplay();
+        Point size = new Point();
+        disp.getSize(size);
+
+        screenWidth = size.x;
+        screenHeight = size.y;
+
         //Move to out of Screen
         fish.setX(getResources().getDimension(R.dimen.starting_position));
         fish.setX(getResources().getDimension(R.dimen.starting_position));
@@ -59,10 +79,12 @@ public class MainActivity extends AppCompatActivity {
 
         slime.setX(getResources().getDimension(R.dimen.starting_position));
         slime.setX(getResources().getDimension(R.dimen.starting_position));
- }
+        //Temporary
+        boxY = 500;
+    }
 
     public boolean onTouchEvent(MotionEvent me) {
-        if(start_flg ==false){
+        if(!start_flg){
             start_flg=true;
             //Why get frame height and box height here?
             //Because the UI has not been set on the screen in OnCreate();
@@ -72,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
             boxY =(int)box.getY();
             //The box is a square.(height and width are the same)
             boxSize = box.getHeight();
-            //Temporary
-            boxY = 500;
+
             startLabel.setVisibility(View.GONE);
             timer.schedule(
                     new TimerTask(){
@@ -84,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                    },0,20 /*Change every 20 Milliseconds*/
+                    },0,45 /*Change every 20 Milliseconds*/
             );
         }else {
             if (me.getAction() == MotionEvent.ACTION_DOWN) {
@@ -98,6 +119,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changePos(){
+        fishX -=12;
+        if(fishX<0){
+            fishX = screenWidth+20;
+            fishY = (int)Math.floor(Math.random()* (frameHeight - fish.getHeight()));
+            //System.out.println(fishX);
+        }
+        fish.setX(fishX);
+        fish.setY(fishY);
+
+        flyX -= 16;
+        if(flyX<0){
+            flyX = screenWidth+20;
+            flyY = (int)Math.floor(Math.random()* (frameHeight - fish.getHeight()));
+            //System.out.println(fishX);
+        }
+        fly.setX(flyX);
+        fly.setY(flyY);
+
+        slimeX -= 16;
+        if(slimeX<0){
+            slimeX = screenWidth+5000;
+            slimeY = (int)Math.floor(Math.random()* (frameHeight - fish.getHeight()));
+            //System.out.println(fishX);
+        }
+        slime.setX(slimeX);
+        slime.setY(slimeY);
 
         //Move Box
         if(action_flg){

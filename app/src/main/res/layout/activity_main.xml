@@ -42,18 +42,18 @@
             />
         <ImageView
             android:id = "@+id/fishswim"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src ="@drawable/fish_swim1"/>
         <ImageView
             android:id = "@+id/fly"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src ="@drawable/fly_fly1"/>
         <ImageView
             android:id = "@+id/slim"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:src ="@drawable/slime_walk1"/>
 
     </FrameLayout>
