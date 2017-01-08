@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     //Initialize  Class
     private Handler handler = new Handler();
     private Timer timer = new Timer();
+    private SoundPlayer sound;
 
     //position
     private int boxY;
@@ -57,11 +58,14 @@ public class MainActivity extends AppCompatActivity {
 
     private int screenHeight, screenWidth;
 
+    boolean running;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Typeface custom_font = Typeface.createFromAsset(getAssets(),"fonts/ultimate_gameplayer_pixel.ttf");
+        sound = new SoundPlayer(this);
         scoreLabel = (TextView) findViewById(R.id.scoreLabel);
         scoreLabel.setTypeface(custom_font);
         startLabel = (TextView) findViewById(R.id.startLabel);
@@ -93,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         boxY = 500;
         scoreLabel.setText("Score: "+score);
 
-
+        running = getIntent().getBooleanExtra("RUNNING",false);
     }
 
     public boolean onTouchEvent(MotionEvent me) {
@@ -118,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                    },0,45 /*Change every 20 Milliseconds*/
+                    },0,20 /*Change every 20 Milliseconds*/
             );
         }else {
             if (me.getAction() == MotionEvent.ACTION_DOWN) {
@@ -185,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
                 && boxY <=fishCenterY&& fishCenterY <= boxY+boxSize){
             score+=10;
             fishX =-10;
+            sound.playHitSound();
         }
 
         int flyCenterX = flyX+ fly.getWidth()/2;
@@ -197,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
                 && boxY <=flyCenterY&& flyCenterY <= boxY+boxSize){
             score+=30;
             flyX =-10;
+            sound.playHitSound();
         }
 
         int slimeCenterX = slimeX+ slime.getWidth()/2;
@@ -210,10 +216,11 @@ public class MainActivity extends AppCompatActivity {
             //Stop Timer
             timer.cancel();
             timer=null;
-
+            sound.playOverSound();
             //Show Result
             Intent intent = new Intent(getApplicationContext(),Result.class);
             intent.putExtra("SCORE",score);
+            intent.putExtra("RUNNING",running);
             startActivity(intent);
         }
 
@@ -231,4 +238,9 @@ public class MainActivity extends AppCompatActivity {
         return super.dispatchKeyEvent(event);
     }
 
+    public void onDestroy(){
+
+        super.onDestroy();
+
+    }
 }

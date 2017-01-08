@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 public class Result extends AppCompatActivity {
-
+    boolean running;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +23,7 @@ public class Result extends AppCompatActivity {
         highScoreLabel.setTypeface(custom_font);
 
         int score = getIntent().getIntExtra("SCORE",0);
+        running = getIntent().getBooleanExtra("RUNNING",false);
         scoreLabel.setText(score+"");
         SharedPreferences settings = getSharedPreferences("GAME_DATA", Context.MODE_PRIVATE);
         int highScore = settings.getInt("HIGH_SCORE",0);
@@ -42,7 +43,10 @@ public class Result extends AppCompatActivity {
         }
 
     public void tryAgain(View view){
-        startActivity(new Intent(getApplicationContext(),Start.class));
+        //startActivity(new Intent(getApplicationContext(),Start.class));
+        Intent intent = new Intent(getApplicationContext(),Start.class);
+        intent.putExtra("RUNNING",running);
+        startActivity(intent);
 
     }
     //Disable Return Button
