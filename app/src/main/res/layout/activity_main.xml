@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     tools:context="com.example.jonnyelliott.catchtheball.MainActivity">
 
     <TextView
@@ -22,6 +23,13 @@
         android:id ="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ImageView
+            android:id ="@+id/skybox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/violet_sky"
+            android:scaleType="centerCrop">
+        </ImageView>
 
         <TextView
             android:id ="@+id/startLabel"
