@@ -8,17 +8,61 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+
 public class Start extends AppCompatActivity {
-    BackgroundSound runner;
     boolean running;
+    private InterstitialAd interstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+       //Create the interstitial
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");//This is a Test ID
+        /*
+        App IDs are unique identifiers given to mobile apps
+        when they're registered in the AdMob console.
+        To find your app ID, click the App management
+        option under the settings dropdown
+        (located in the upper right-hand corner)
+        on the AdMob account page. App IDs have
+        the form ca-app-pub-XXXXXXXXXXXXXXXX~NNNNNNNNNN.
+        https://firebase.google.com/docs/admob/android/quick-start
+         */
+        //Create Request
+        AdRequest adRequest  = new AdRequest.Builder().build();
+
+        //Start Loading...
+        interstitialAd.loadAd(adRequest);
+
+        //Once request is loaded,display ad.
+        interstitialAd.setAdListener(new AdListener() {
+
+            public void onAdLoaded(){
+               displayInterstitialad();
+            }
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+            }
+        });
+
+
+        //Play Music
         running = getIntent().getBooleanExtra("RUNNING",false);
         if(!running){
             BackgroundSound runner = new BackgroundSound();
             runner.execute();
+        }
+    }
+
+    public void displayInterstitialad(){
+        if(interstitialAd.isLoaded()){
+            interstitialAd.show();
         }
     }
 

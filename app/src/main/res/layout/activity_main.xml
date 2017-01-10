@@ -27,7 +27,7 @@
             android:id ="@+id/skybox"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/violet_sky"
+            android:src="@mipmap/violet_sky"
             android:scaleType="centerCrop">
         </ImageView>
 

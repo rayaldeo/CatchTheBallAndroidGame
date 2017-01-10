@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Add All biomes to an ArrayList
         skybiomes =new ArrayList<>();
-        skybiomes.add(R.drawable.rusted_sky);  skybiomes.add(R.drawable.violet_sky);
+        skybiomes.add(R.mipmap.rusted_sky);  skybiomes.add(R.mipmap.violet_sky);
         thisBiome = rand.nextInt((skybiomes.size() - 1) + 1);
         //Set the SkyBox For the Beginning of the Game
         //setSkyBox(skybiomes.get(thisBiome));
